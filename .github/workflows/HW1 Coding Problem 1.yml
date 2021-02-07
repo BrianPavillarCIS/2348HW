@@ -1,0 +1,26 @@
+
+# Name: Brian Pavillar
+# ID: 1863509
+
+# Input Statements
+cur_month = int(input("What is the current month?" ))
+cur_day = int(input("What is the current day?" ))
+cur_year = int(input("What is the current year?" ))
+bir_month = int(input("What is your birth month?" ))
+bir_day = int(input("What is your birth day?" ))
+bir_year = int(input("What is your birth year?" ))
+
+# Age calculator
+age = cur_year - bir_year - 1
+# Calculating if their birthday has passed
+if cur_month >= bir_month:
+    if cur_day >= bir_day:
+        age += 1
+
+# Print Statement
+print("Birthday Calculator \nCurrent day \n Month:", cur_month, "\n Day:", cur_day, "\n Year:", cur_year, "\nBirthday\n Month:", bir_month, "\n Day:", bir_day, "\n Year:", bir_year, "\nYou are", age, "years old.")
+
+# Seeing if today is the birthday
+if cur_month == bir_month:
+    if cur_day == bir_day:
+        print("Happy birthday!")
