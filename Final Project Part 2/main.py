@@ -1,6 +1,7 @@
 # Name: Brian Pavillar
 # ID: 1863509
 
+# import modules and global variables
 import datetime
 import csv
 
@@ -8,6 +9,7 @@ inventory = dict()
 manufacturers = []
 itemtypes = []
 
+# class constructors as used in Part 1
 class InventoryItem:
     def __init__(self):
         self.itemId = -1
@@ -33,6 +35,7 @@ class InventoryItem:
 def pricesort(e):
     return e.price
 
+# main() function from part 1
 def prepareinventory():
     # prepare the inventory dict
     # some pre-processing lists to make input validation during querying easy
@@ -69,15 +72,16 @@ def executequery(querystr):
     manufacturer = None
     itemtype = None
 
-    # if a.iv: quit is true, exit
+    # a.iv: if quit is true, exit
     if querystr.strip() == "q":
         quit()
 
-    # if true, we found a duplicate of a given element type e.g. "Apple Dell tower"
-    # by a.i we return no such inventory
+    # a.i: if true, we found a duplicate of a given element type e.g. "Apple Dell tower"
+    # from directions, we return no such inventory
     excessparameterfound = False
+    
+    # We can't get a pair from a single element
     if len(queryfeatures) < 2:
-        # We can't get a pair from a single element
         print("No such item in inventory")
         return
     else:
@@ -96,7 +100,7 @@ def executequery(querystr):
         print("No such item in inventory")
         return
 
-    # Filter inventory by the manufacturer/itemtype pair and etc via a.ii
+    # a.ii: Filter inventory by the manufacturer/itemtype pair and etc 
     today = datetime.date.today()
     candidates = []
     alternates = []
@@ -114,27 +118,29 @@ def executequery(querystr):
 
     # sort by price descending, grab candidates[0] and [1] for the search output
     candidates.sort(key=pricesort,reverse=True)
-    # a.ii
+    # a.ii: Print best match
     finalCandidate = candidates[0]
     finalCandidate.productstring("Your item is: ")
     # a.iii: If we have one alternative that's valid, give it
     if len(alternates) == 1:
         alternates[0].productstring("You may also consider: ")
-    # a.iii: If multiple alternatives, decide which alternative is closest in price
-    # using absolute value of the difference
+    # a.iii: If multiple alternatives, decide which alternative is closest in price using absolute value of the difference
     if len(alternates) > 1:
         bestdifference = 99999
         bestalternative = None
         for i in range(len(alternates)):
             # abs gets the absolute value of difference
             difference = abs(alternates[i].price - finalCandidate.price)
+            # comparing price values
             if difference < bestdifference:
                 bestdifference = difference
                 bestalternative = alternates[i]
         bestalternative.productstring("You may also consider: ")
 
 if __name__ == '__main__':
+    # function call
     prepareinventory()
+    # loops until 'q' is called
     while True:
         query = (str(input("Give input:")))
         executequery(query)
